@@ -13,7 +13,7 @@
     <div th:each="el : ${posts}" class="alert alert-info mt-2">
         <h3 th:text="${el.title}"/>
         <p th:text="${el.anons}"/>
-        <a th:href="'/blog/'+${el.id}">детали</a>
+        <a th:href="'/immovables/'+${el.id}" class="btn btn-warning">Детали</a>
 
     </div>
 </div>
