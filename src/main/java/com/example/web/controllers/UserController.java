@@ -1,7 +1,7 @@
 package com.example.web.controllers;
 
 import com.example.web.models.User;
-import com.example.web.service.UserService;
+import com.example.web.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,17 +11,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 @RequiredArgsConstructor
 public class UserController {
-
     private final UserService userService;
 
     @GetMapping("/login")
     public String login() {
-        return "user/login";
+        return "login";
     }
 
     @GetMapping("/registration")
     public String registration() {
-        return "user/registration";
+        return "registration";
     }
 
 

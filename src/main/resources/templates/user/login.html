@@ -1,4 +1,6 @@
 <!DOCTYPE HTML>
+<!--незадействено-->
+
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
   <title th:text="блог"/>
@@ -14,7 +16,7 @@
     <input type="text" name="username" placeholder="Введите свою почту" class="form-control"><br>
     <input type="password" name="password" placeholder="Введите пароль" class="form-control"><br>
     <input type="hidden" name="_csrf" value="${_csrf.token}" >
-    <input type="submit" value="Вход" class="btn btn-success"/>
+    <input type="submit" value="Вход" class="btn btn-success"/><br>
   </form>
   <a href="/registration" class="btn btn-success">Зарегистрироваться</a>
 </div>
