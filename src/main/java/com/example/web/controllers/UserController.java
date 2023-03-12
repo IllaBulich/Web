@@ -15,12 +15,12 @@ public class UserController {
 
     @GetMapping("/login")
     public String login() {
-        return "login";
+        return "user/login";
     }
 
     @GetMapping("/registration")
     public String registration() {
-        return "registration";
+        return "user/registration";
     }
 
 
@@ -28,7 +28,7 @@ public class UserController {
     public String createUser(User user, Model model) {
         if (!userService.createUser(user)){
             model.addAttribute("errorMassege","пользователь с email"+ user.getEmail()+"уже существует");
-            return "registration";
+            return "user/registration";
         }
         userService.createUser(user);
         return "redirect:/login";

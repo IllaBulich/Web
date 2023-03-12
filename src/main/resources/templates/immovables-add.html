@@ -10,7 +10,7 @@
 
 <div class="container mt-5 md-5" >
   <h1>Добавление</h1>
-  <form action="/immovables/add" method="post">
+  <form th:action="@{/immovables/add}" method="post">
     <input type="text" name="title" placeholder="Введите название статьи" class="form-control"><br>
     <input type="text" name="anons" placeholder="Введите анонс статьи" class="form-control"><br>
     <textarea name="full_text" placeholder="Введите содержание статьи" class="form-control"></textarea><br>
