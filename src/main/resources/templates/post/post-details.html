@@ -10,16 +10,12 @@
 <header th:insert="blocks/header :: header"></header>
 
 <div class="container mt-5" >
-  <div th:each="el : ${immovables}" class="alert alert-info mt-2">
+  <div th:each="el : ${post}" class="alert alert-info mt-2">
     <h3 th:text="${el.title}"/>
-    <p th:text="${el.city}"/>
-    <p th:text="${el.street}"/>
-    <p th:text="${el.address}"/>
-    <p th:text="${el.description}"/>
-
-    <p><b>Цена: </b><span th:text="${el.price}"/></p>
-    <a th:href="'/immovables/' + ${el.id} + '/edit'" class="btn btn-warning">Редактировать</a><br><br>
-    <form th:action="'/immovables/' + ${el.id} + '/remove'" method="post">
+    <p th:text="${el.full_text}"/>
+    <p><b>Просмотры</b><span th:text="${el.views}"/></p>
+    <a th:href="'/post/' + ${el.id} + '/edit'" class="btn btn-warning">Редактировать</a><br><br>
+    <form th:action="'/post/' + ${el.id} + '/remove'" method="post">
       <button class="btn btn-warning" type="submit">Удалить</button>
     </form>
 
