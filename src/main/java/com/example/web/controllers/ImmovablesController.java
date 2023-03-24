@@ -4,13 +4,16 @@ import com.example.web.models.Immovables;
 import com.example.web.models.Post;
 import com.example.web.services.ImmovablesService;
 import lombok.RequiredArgsConstructor;
+import org.apache.tomcat.jni.Multicast;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Optional;
 
@@ -19,6 +22,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class ImmovablesController {
     private final ImmovablesService immovablesService;
+
 
     @GetMapping("/")
     public String home(@RequestParam(name = "title", required = false) String title, Model model) {
@@ -32,18 +36,47 @@ public class ImmovablesController {
     }
 
     @PostMapping("/immovables/add")
-    public String postImmovablesAdd(Immovables immovables ){
-        immovablesService.seveImmovables(immovables);
+    public String postImmovablesAdd(
+            @PathVariable("file1")MultipartFile file1,
+            @PathVariable("file2")MultipartFile file2,
+            @PathVariable("file3")MultipartFile file3,
+            Immovables immovables ) throws IOException {
+        immovablesService.saveImmovables(immovables,file1,file2,file3);
         return "redirect:/";
     }
     @GetMapping("/immovables/{id}")
     public String immovablesDetails(
             @PathVariable(value = "id") long id,
             Model  model){
-
+        if(immovablesService.getImmovablesById(id) == null)
+            return "redirect:/";
+        Immovables immovables = immovablesService.getImmovablesById(id);
+        model.addAttribute("images",immovables.getImages());
         model.addAttribute("immovables",immovablesService.getImmovablesById(id));
         return "immovables-details";
     }
+
+    @GetMapping("/immovables/{id}/edit")
+    public String immovablesEdit(
+            @PathVariable(value = "id") long id,
+            Model  model){
+
+        if(immovablesService.getImmovablesById(id) == null)
+            return "redirect:/";
+
+        model.addAttribute("immovables",immovablesService.getImmovablesById(id));
+        return "immovables-edit";
+    }
+
+//    @PostMapping("/immovables/{id}/edit")
+//    public String postPostUpdate(
+//            @PathVariable(value = "id") long id,
+//            Immovables immovables ){
+//        immovablesService.saveImmovables(immovables);
+//        return "redirect:/";
+//    }
+
+
 
 
     @PostMapping("/immovables/{id}/remove")

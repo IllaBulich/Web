@@ -10,13 +10,18 @@
 
 <div class="container mt-5 md-5" >
     <h1>Добавление</h1>
-    <form th:action="@{/immovables/add}" method="post">
+    <form th:action="@{/immovables/add}" method="post" enctype="multipart/form-data">
         <input type="text" name="title" placeholder="Введите название" class="form-control"><br>
         <input type="text" name="city" placeholder="Введите название города" class="form-control"><br>
         <input type="text" name="street" placeholder="Введите название улицы" class="form-control"><br>
         <input type="text" name="address" placeholder="Введите адрес" class="form-control"><br>
         <input type="number" name="price" placeholder="Введите Цену" class="form-control"><br>
-        <textarea name="description" placeholder="Введите содержание статьи" class="form-control"></textarea><br>
+        <textarea name="description" placeholder="Описание" class="form-control"></textarea><br>
+        <input type="file" name="file1" placeholder="1картинка" class="form-control"><br>
+        <input type="file" name="file2" placeholder="2картинка" class="form-control"><br>
+        <input type="file" name="file3" placeholder="3картинка" class="form-control"><br>
+
+
         <button type="submit" class="btn btn-success">Добавить статью</button>
     </form>
 

@@ -18,6 +18,10 @@
 
 
 <main>
+    <form th:action="@{/}" method="get">
+        Поиск по названию<input type="text" th:name="title"><br>
+        <input type="submit" th:value="поиск"/>
+    </form>
 
     <section class="py-5 text-center container">
         <div class="row py-lg-5">
@@ -44,7 +48,7 @@
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="btn-group">
                                     <a th:href="'/immovables/'+${el.id}"  type="button" class="btn btn-sm btn-outline-secondary">Детали</a>
-                                    <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                                    <a th:href="'/immovables/' + ${el.id} + '/edit'" type="button" class="btn btn-sm btn-outline-secondary">Edit</a>
                                 </div>
                                 <small  class="text-muted" th:text="${el.price}+'$'"/>
                             </div>

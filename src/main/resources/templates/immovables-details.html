@@ -16,7 +16,9 @@
     <p th:text="${el.street}"/>
     <p th:text="${el.address}"/>
     <p th:text="${el.description}"/>
-
+    <div th:each="img : ${images}" >
+      <img th:src="'/images/'+${img.id}" height="60px" ><br>
+    </div>
     <p><b>Цена: </b><span th:text="${el.price}"/></p>
     <a th:href="'/immovables/' + ${el.id} + '/edit'" class="btn btn-warning">Редактировать</a><br><br>
     <form th:action="'/immovables/' + ${el.id} + '/remove'" method="post">
