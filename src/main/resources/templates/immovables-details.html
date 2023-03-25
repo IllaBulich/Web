@@ -16,6 +16,7 @@
     <p th:text="${el.street}"/>
     <p th:text="${el.address}"/>
     <p th:text="${el.description}"/>
+    <a th:href="'/user/'+ ${immovables.user.id}"  th:text="${immovables.user.name}"></a>
     <div th:each="img : ${images}" >
       <img th:src="'/images/'+${img.id}" height="60px" ><br>
     </div>

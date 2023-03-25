@@ -1,0 +1,26 @@
+<div th:fragment="immovables">
+  <div class="album py-5 bg-light">
+    <div class="container">
+
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+        <div th:each="el : ${immovables}" class="col">
+          <div class="card shadow-sm">
+            <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text th:text="${el.title}" x="50%" y="50%" fill="#eceeef" dy=".3em"/></svg>
+            <div class="card-body">
+              <p th:text="${el.city}" class="card-text"/>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                  <a th:href="'/immovables/'+${el.id}"  type="button" class="btn btn-sm btn-outline-secondary">Детали</a>
+                  <a th:href="'/immovables/' + ${el.id} + '/edit'" type="button" class="btn btn-sm btn-outline-secondary">Edit</a>
+
+                </div>
+                <small  class="text-muted" th:text="${el.price}+'$'"/>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

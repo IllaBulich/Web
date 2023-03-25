@@ -5,6 +5,7 @@ import com.example.web.models.Post;
 import com.example.web.services.ImmovablesService;
 import lombok.RequiredArgsConstructor;
 import org.apache.tomcat.jni.Multicast;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,19 +15,22 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.Optional;
 
 
 @Controller
 @RequiredArgsConstructor
+
 public class ImmovablesController {
     private final ImmovablesService immovablesService;
 
 
     @GetMapping("/")
-    public String home(@RequestParam(name = "title", required = false) String title, Model model) {
+    public String home(@RequestParam(name = "title", required = false) String title,Principal principal, Model model) {
         model.addAttribute("immovables", immovablesService.listImmovables(title));
+        model.addAttribute("user",immovablesService.getUserByPrincipal(principal));
         return "home";
     }
 
@@ -40,8 +44,9 @@ public class ImmovablesController {
             @PathVariable("file1")MultipartFile file1,
             @PathVariable("file2")MultipartFile file2,
             @PathVariable("file3")MultipartFile file3,
-            Immovables immovables ) throws IOException {
-        immovablesService.saveImmovables(immovables,file1,file2,file3);
+            Immovables immovables,
+            Principal principal) throws IOException {
+        immovablesService.saveImmovables(principal,immovables,file1,file2,file3);
         return "redirect:/";
     }
     @GetMapping("/immovables/{id}")

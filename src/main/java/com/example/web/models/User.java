@@ -9,6 +9,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -37,12 +38,16 @@ public class User implements UserDetails {
             joinColumns = @JoinColumn(name = "user_id"))
     @Enumerated(EnumType.STRING)
     private Set<Role> roles = new HashSet<>();
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "user")
+    private List<Immovables> immovables;
     private LocalDateTime dateOfCreated;
 
     @PrePersist
     private void init() {
         dateOfCreated = LocalDateTime.now();
     }
+
+    public boolean isAdmin() {return  roles.contains(Role.ROLE_ADMIN);}
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

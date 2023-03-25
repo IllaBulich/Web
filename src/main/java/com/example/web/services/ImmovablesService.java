@@ -2,13 +2,16 @@ package com.example.web.services;
 
 import com.example.web.models.Image;
 import com.example.web.models.Immovables;
+import com.example.web.models.User;
 import com.example.web.repo.ImmovablesRepository;
+import com.example.web.repo.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.security.Principal;
 import java.util.List;
 
 @Service
@@ -16,13 +19,20 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ImmovablesService {
     private final ImmovablesRepository immovablesRepository;
+    private final UserRepository userRepository;
 
     public List<Immovables> listImmovables(String title){
         if( title != null ) return immovablesRepository.findByTitle(title);
         return immovablesRepository.findAll();
     }
 
-    public void saveImmovables(Immovables immovables, MultipartFile file1,MultipartFile file2,MultipartFile file3) throws IOException {
+    public void saveImmovables(
+            Principal principal,
+            Immovables immovables,
+            MultipartFile file1,
+            MultipartFile file2,
+            MultipartFile file3) throws IOException {
+        immovables.setUser(getUserByPrincipal(principal));
         Image image1;
         Image image2;
         Image image3;
@@ -43,6 +53,11 @@ public class ImmovablesService {
         Immovables immovablesFromDb = immovablesRepository.save(immovables);
         immovablesFromDb.setPreviewImageId(immovablesFromDb.getImages().get(0).getId());
         immovablesRepository.save(immovables);
+    }
+
+    public User getUserByPrincipal(Principal principal) {
+        if (principal == null) return  new User();
+        return userRepository.findByEmail(principal.getName());
     }
 
     private Image toImageEntity(MultipartFile file) throws IOException {
