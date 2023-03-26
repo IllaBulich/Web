@@ -22,7 +22,6 @@ import java.util.Optional;
 
 @Controller
 @RequiredArgsConstructor
-
 public class ImmovablesController {
     private final ImmovablesService immovablesService;
 

@@ -12,6 +12,12 @@
     <a class="me-3 py-2 text-dark text-decoration-none" href="/post">Блог</a>
     <a class="me-3 py-2 text-dark text-decoration-none" href="/post/add">Добавление</a>
     <a class="me-3 py-2 text-dark text-decoration-none" href="/about">Про нас</a>
+    <a type="button" class="btn btn-outline-primary me-2" th:if="${#authorization.expression('isAnonymous()')}" href="/login"> Войти</a>
+    <p class="me-3 py-2 text-dark text-decoration-none" th:if="${#authorization.expression('isAuthenticated()')}">Имя  <span th:text="${#authentication.principal.name}"></span></span></p>
+    <form th:if="${#authorization.expression('isAuthenticated()')}" th:action="@{/logout}" method="post">
+      <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
+      <button  class="btn btn-primary" type="submit">Выйти</button>
+    </form>
 
   </nav>
   </div>

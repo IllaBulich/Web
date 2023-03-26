@@ -10,19 +10,6 @@
 
 <header th:insert="blocks/header :: header" ></header>
 
-    <a th:if="${user.email == null}" href="/login"> Войти</a>
-
-
-    <h3 th:if="${user.email != null}">Имя <i th:text="${user.name}"/></h3>
-    <form th:if="${user.email != null}" th:action="@{/logout}" method="post">
-        <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
-        <button type="submit">Выйти</button>
-    </form>
-
-
-
-
-
 
 <main>
     <form th:action="@{/}" method="get">
