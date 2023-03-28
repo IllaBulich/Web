@@ -31,26 +31,16 @@ public class ImmovablesService {
             Principal principal,
             Details details,
             Immovables immovables,
-            MultipartFile file1,
-            MultipartFile file2,
-            MultipartFile file3) throws IOException {
+            MultipartFile[] files) throws IOException {
         immovables.setUser(getUserByPrincipal(principal));
 
-        Image image1;
-        Image image2;
-        Image image3;
-        if (file1.getSize() != 0){
-            image1 = toImageEntity(file1);
-            image1.setPreviewImage(true);
-            immovables.addImageToImmovables(image1);
-        }
-        if (file2.getSize() != 0){
-            image2 = toImageEntity(file2);
-            immovables.addImageToImmovables(image2);
-        }
-        if (file3.getSize() != 0){
-            image3 = toImageEntity(file3);
-            immovables.addImageToImmovables(image3);
+
+
+        for (MultipartFile file : files) {
+            if (file.getSize() != 0) {
+                Image image = toImageEntity(file);
+                immovables.addImageToImmovables(image);
+            }
         }
 
         Immovables immovablesFromDb = immovablesRepository.save(immovables);

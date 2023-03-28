@@ -18,7 +18,6 @@ public class Details {
 
     private Integer rooms, floor;
 
-    @Column( unique = true)
     private Float square;
 
     private Float livingSpace, kitchenSpace;

@@ -38,12 +38,11 @@ public class ImmovablesController {
 
     @PostMapping("/immovables/add")
     public String postImmovablesAdd(
-            @PathVariable("file1")MultipartFile file1,
-            @PathVariable("file2")MultipartFile file2,
-            @PathVariable("file3")MultipartFile file3,
+            @PathVariable("files") MultipartFile[] files,
+
             Immovables immovables, Details details,
             Principal principal) throws IOException {
-        immovablesService.saveImmovables(principal,details, immovables,file1,file2,file3);
+        immovablesService.saveImmovables(principal,details, immovables,files);
         return "redirect:/";
     }
     @GetMapping("/immovables/details/{id}")
