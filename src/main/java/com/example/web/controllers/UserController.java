@@ -52,4 +52,11 @@ public class UserController {
         model.addAttribute("immovables", user.getImmovables());
         return "user/user-account";
     }
+    @PostMapping("/user/{id}/remove")
+    public String postImmovablesDelete(
+            @PathVariable(value = "id") long id,
+            Model model){
+        userService.deleteUser(id);
+        return "redirect:/admin";
+    }
 }

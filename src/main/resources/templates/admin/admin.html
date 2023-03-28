@@ -35,7 +35,9 @@
         </form>
       </th>
       <th><a th:href="'/admin/user/edit/'+${el.id}" class="btn btn-success">Редактировать</a></th>
-      <th><a th:href="'/user/'+${el.id}" class="btn btn-success">детали</a></th>
+      <th><a th:href="'/user/info/'+${el.id}" class="btn btn-success">детали</a><form th:action="'/user/' + ${el.id} + '/remove'" method="post">
+        <button class="btn btn-warning" type="submit">Удалить</button>
+      </form></th>
     </tr>
 
   </table>
