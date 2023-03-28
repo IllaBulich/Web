@@ -30,6 +30,11 @@ public class Immovables {
     @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
     @JoinColumn
     private User user;
+
+    @OneToOne(mappedBy = "immovables", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Details details;
+
+
     @PrePersist
     private void init(){
         dateOfCreated = LocalDateTime.now();
@@ -38,5 +43,23 @@ public class Immovables {
     public void addImageToImmovables(Image image){
         image.setImmovables(this);
         images.add(image);
+    }
+
+    @Override
+    public String toString() {
+        return "Immovables{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", city='" + city + '\'' +
+                ", street='" + street + '\'' +
+                ", address='" + address + '\'' +
+                ", description='" + description + '\'' +
+                ", price=" + price +
+                ", images=" + images +
+                ", previewImageId=" + previewImageId +
+                ", dateOfCreated=" + dateOfCreated +
+                ", user=" + user.getEmail()+
+                ", details=" + details +
+                '}';
     }
 }

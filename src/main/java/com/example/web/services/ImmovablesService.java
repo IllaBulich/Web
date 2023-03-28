@@ -1,5 +1,6 @@
 package com.example.web.services;
 
+import com.example.web.models.Details;
 import com.example.web.models.Image;
 import com.example.web.models.Immovables;
 import com.example.web.models.User;
@@ -22,17 +23,19 @@ public class ImmovablesService {
     private final UserRepository userRepository;
 
     public List<Immovables> listImmovables(String title){
-        if( title != null ) return immovablesRepository.findByTitle(title);
+        if( title != null ) return immovablesRepository.findByNameContaining(title);
         return immovablesRepository.findAll();
     }
 
     public void saveImmovables(
             Principal principal,
+            Details details,
             Immovables immovables,
             MultipartFile file1,
             MultipartFile file2,
             MultipartFile file3) throws IOException {
         immovables.setUser(getUserByPrincipal(principal));
+
         Image image1;
         Image image2;
         Image image3;
@@ -49,10 +52,13 @@ public class ImmovablesService {
             image3 = toImageEntity(file3);
             immovables.addImageToImmovables(image3);
         }
-        log.info("Saving new {}", immovables);
+
         Immovables immovablesFromDb = immovablesRepository.save(immovables);
+
         immovablesFromDb.setPreviewImageId(immovablesFromDb.getImages().get(0).getId());
-        immovablesRepository.save(immovables);
+        details.setImmovables(immovablesFromDb);
+        immovablesFromDb.setDetails(details);
+        immovablesRepository.save(immovablesFromDb);
     }
 
     public User getUserByPrincipal(Principal principal) {

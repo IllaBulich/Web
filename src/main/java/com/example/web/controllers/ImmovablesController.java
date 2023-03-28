@@ -1,11 +1,10 @@
 package com.example.web.controllers;
 
+import com.example.web.models.Details;
 import com.example.web.models.Immovables;
-import com.example.web.models.Post;
+import com.example.web.repo.DetailsRepository;
 import com.example.web.services.ImmovablesService;
 import lombok.RequiredArgsConstructor;
-import org.apache.tomcat.jni.Multicast;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,14 +15,13 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.security.Principal;
-import java.util.ArrayList;
-import java.util.Optional;
 
 
 @Controller
 @RequiredArgsConstructor
 public class ImmovablesController {
     private final ImmovablesService immovablesService;
+    private final DetailsRepository detailsRepository;
 
 
     @GetMapping("/")
@@ -43,12 +41,12 @@ public class ImmovablesController {
             @PathVariable("file1")MultipartFile file1,
             @PathVariable("file2")MultipartFile file2,
             @PathVariable("file3")MultipartFile file3,
-            Immovables immovables,
+            Immovables immovables, Details details,
             Principal principal) throws IOException {
-        immovablesService.saveImmovables(principal,immovables,file1,file2,file3);
+        immovablesService.saveImmovables(principal,details, immovables,file1,file2,file3);
         return "redirect:/";
     }
-    @GetMapping("/immovables/{id}")
+    @GetMapping("/immovables/details/{id}")
     public String immovablesDetails(
             @PathVariable(value = "id") long id,
             Model  model){
@@ -57,6 +55,8 @@ public class ImmovablesController {
         Immovables immovables = immovablesService.getImmovablesById(id);
         model.addAttribute("images",immovables.getImages());
         model.addAttribute("immovables",immovablesService.getImmovablesById(id));
+        model.addAttribute("details",immovables.getDetails());
+
         return "immovables-details";
     }
 
@@ -92,10 +92,6 @@ public class ImmovablesController {
     }
 
 
-    @GetMapping("/about")
-    public String about(Model model) {
-        model.addAttribute("titel", "Главная");
-        return "about";
-    }
+
 
 }

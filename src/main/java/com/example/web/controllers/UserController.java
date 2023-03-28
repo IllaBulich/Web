@@ -1,6 +1,7 @@
 package com.example.web.controllers;
 
 import com.example.web.models.User;
+import com.example.web.services.ImmovablesService;
 import com.example.web.services.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -9,9 +10,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.security.Principal;
+
 @Controller
 @RequiredArgsConstructor
 public class UserController {
+    private  final ImmovablesService immovablesService;
     private final UserService userService;
 
     @GetMapping("/login")
@@ -34,10 +38,18 @@ public class UserController {
         userService.createUser(user);
         return "redirect:/login";
     }
-    @GetMapping("/user/{user}")
+    @GetMapping("/user/info/{user}")
     public String userInfo(@PathVariable("user") User user, Model model){
         model.addAttribute("user",user);
         model.addAttribute("immovables",user.getImmovables());
         return "user/user-info";
+    }
+
+    @GetMapping("/user/account")
+    public String userProducts(Principal principal, Model model) {
+        User user = immovablesService.getUserByPrincipal(principal);
+        model.addAttribute("user", user);
+        model.addAttribute("immovables", user.getImmovables());
+        return "user/user-account";
     }
 }
