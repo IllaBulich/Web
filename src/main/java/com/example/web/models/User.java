@@ -94,4 +94,8 @@ public class User implements UserDetails {
                 ", dateOfCreated=" + dateOfCreated +
                 '}';
     }
+
+    public List<Immovables> getImmovables() {
+        return immovables;
+    }
 }

@@ -34,22 +34,60 @@ public class ImmovablesService {
             MultipartFile[] files) throws IOException {
         immovables.setUser(getUserByPrincipal(principal));
 
-
-
-        for (MultipartFile file : files) {
-            if (file.getSize() != 0) {
-                Image image = toImageEntity(file);
-                immovables.addImageToImmovables(image);
+        if (files != null) {
+            for (MultipartFile file : files) {
+                if (file.getSize() != 0) {
+                    Image image = toImageEntity(file);
+                    immovables.addImageToImmovables(image);
+                }
             }
         }
-
         Immovables immovablesFromDb = immovablesRepository.save(immovables);
-
         immovablesFromDb.setPreviewImageId(immovablesFromDb.getImages().get(0).getId());
         details.setImmovables(immovablesFromDb);
         immovablesFromDb.setDetails(details);
         immovablesRepository.save(immovablesFromDb);
     }
+
+    public void editImmovables(Long id,
+            Principal principal,
+            Details detailsNow,
+            Immovables immovablesNow,
+            MultipartFile[] files) throws IOException {
+        Immovables immovables = immovablesRepository.findById(id).orElseThrow();
+        if (immovables.getUser() == getUserByPrincipal(principal)){
+
+            immovables.setTitle(immovablesNow.getTitle());
+            immovables.setCity(immovablesNow.getCity());
+            immovables.setStreet(immovablesNow.getStreet());
+            immovables.setAddress(immovablesNow.getAddress());
+            immovables.setPrice(immovablesNow.getPrice());
+            immovables.setDescription(immovablesNow.getDescription());
+
+            immovables.getDetails().setRealtySupType(detailsNow.getRealtySupType());
+            immovables.getDetails().setRooms(detailsNow.getRooms());
+            immovables.getDetails().setFloor(detailsNow.getFloor());
+            immovables.getDetails().setSquare(detailsNow.getSquare());
+            immovables.getDetails().setLivingSpace(detailsNow.getLivingSpace());
+            immovables.getDetails().setKitchenSpace(detailsNow.getKitchenSpace());
+            immovables.getDetails().setBalcony(detailsNow.getBalcony());
+            immovables.getDetails().setBathroom(detailsNow.getBathroom());
+
+
+            if (files != null) {
+                for (MultipartFile file : files) {
+                    if (file.getSize() != 0) {
+                        Image image = toImageEntity(file);
+                        immovables.addImageToImmovables(image);
+                    }
+                }
+            }
+            Immovables immovablesFromDb = immovablesRepository.save(immovables);
+            immovablesFromDb.setPreviewImageId(immovablesFromDb.getImages().get(0).getId());
+            immovablesRepository.save(immovablesFromDb);
+        }
+    }
+
 
     public User getUserByPrincipal(Principal principal) {
         if (principal == null) return  new User();

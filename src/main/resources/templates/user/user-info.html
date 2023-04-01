@@ -16,7 +16,8 @@
 
   <h4>Пользователь <span th:text="${user.name}"></span></h4>
 
-  <header th:insert="blocks/immovables :: immovables" th:with="immovables=${immovables}"></header>
+  <p th:text="${immovableslist}"></p>
+  <header th:insert="blocks/immovables :: immovables" th:with="immovables=${immovableslist}"></header>
 
 </div>
 

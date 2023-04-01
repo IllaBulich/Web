@@ -20,6 +20,7 @@
     <a th:href="'/user/info/'+ ${immovables.user.id}"  th:text="${immovables.user.name}"></a>
     <div th:each="img: ${images}" >
       <img th:src="'/images/'+${img.id}" height="60px" ><br>
+
     </div>
 
     <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
@@ -35,6 +36,7 @@
                         <a th:href="@{/images/{id}(id=${image.id})}">
                             <img class="product" style="height: 100px" th:src="@{/images/{id}(id=${image.id})}">
                         </a>
+
                     </div>
                 </div>
             </div>
@@ -59,10 +61,12 @@
     <p th:text="${immovables.details.kitchenSpace}"/>
     <p th:text="${immovables.details.balcony}"/>
     <p th:text="${immovables.details.bathroom}"/>
-    <a th:href="'/immovables/' + ${immovables.id} + '/edit'" class="btn btn-warning">Редактировать</a><br><br>
-    <form th:action="'/immovables/' + ${immovables.id} + '/remove'" method="post">
-      <button class="btn btn-warning" type="submit">Удалить</button>
-    </form>
+    <div th:if="${user.id == immovables.user.id}">
+        <a  th:href="'/immovables/' + ${immovables.id} + '/edit'" class="btn btn-warning">Редактировать</a><br><br>
+        <form th:action="'/immovables/' + ${immovables.id} + '/remove'" method="post">
+          <button class="btn btn-warning" type="submit">Удалить</button>
+        </form>
+    </div>
 
   </div>
 </div>

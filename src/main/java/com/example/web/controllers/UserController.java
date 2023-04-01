@@ -15,7 +15,7 @@ import java.security.Principal;
 @Controller
 @RequiredArgsConstructor
 public class UserController {
-    private  final ImmovablesService immovablesService;
+
     private final UserService userService;
 
     @GetMapping("/login")
@@ -41,13 +41,14 @@ public class UserController {
     @GetMapping("/user/info/{user}")
     public String userInfo(@PathVariable("user") User user, Model model){
         model.addAttribute("user",user);
-        model.addAttribute("immovables",user.getImmovables());
+        model.addAttribute("immovableslist",user.getImmovables());
+
         return "user/user-info";
     }
 
     @GetMapping("/user/account")
     public String userProducts(Principal principal, Model model) {
-        User user = immovablesService.getUserByPrincipal(principal);
+        User user = userService.getUserByPrincipal(principal);
         model.addAttribute("user", user);
         model.addAttribute("immovables", user.getImmovables());
         return "user/user-account";

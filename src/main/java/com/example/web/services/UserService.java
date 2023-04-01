@@ -1,5 +1,6 @@
 package com.example.web.services;
 
+import com.example.web.models.Immovables;
 import com.example.web.models.Role;
 import com.example.web.models.User;
 import com.example.web.repo.UserRepository;
@@ -9,6 +10,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Array;
+import java.security.Principal;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -68,4 +70,14 @@ public class UserService {
     public void deleteUser(Long id) {
         userRepository.deleteById(id);
     }
+
+    public User getUserByPrincipal(Principal principal) {
+        if (principal == null) return  new User();
+        return userRepository.findByEmail(principal.getName());
+    }
+
+    public User getUserById(Long id){
+        return userRepository.findById(id).orElse(null);
+    }
+
 }
