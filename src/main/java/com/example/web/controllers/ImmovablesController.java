@@ -1,28 +1,29 @@
 package com.example.web.controllers;
 
-import com.example.web.models.Details;
-import com.example.web.models.Immovables;
-import com.example.web.models.User;
+import com.example.web.models.*;
 import com.example.web.repo.DetailsRepository;
+import com.example.web.repo.RentalRepository;
 import com.example.web.services.ImmovablesService;
+import com.example.web.services.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.security.Principal;
+import java.time.LocalDate;
 
 
 @Controller
 @RequiredArgsConstructor
 public class ImmovablesController {
     private final ImmovablesService immovablesService;
-    private final DetailsRepository detailsRepository;
+    private final UserService userService;
+
+    private  final RentalRepository rentalRepository;
 
 
     @GetMapping("/")
@@ -93,7 +94,36 @@ public class ImmovablesController {
     }
 
 
+    @PostMapping("/immovables/rent")
+    public String rentImmovable(Principal principal,
+                                @RequestParam Integer immovable_id,
+                                @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd")  LocalDate rent_start_date,
+                                @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd")  LocalDate rent_end_date) {
+        // получение пользователя и недвижимости из БД
+        User user = immovablesService.getUserByPrincipal(principal);
+        Immovables immovable = immovablesService.getImmovablesById(Long.valueOf(immovable_id));
 
+        // создание объекта аренды
+        Rental rental = new Rental();
+        rental.setStartDate(rent_start_date);
+        rental.setEndDate(rent_end_date);
+        rental.setUser(user);
+        rental.setImmovable(immovable);
+
+        // сохранение объекта аренды в БД
+        rentalRepository.save(rental);
+
+        // возврат успешного ответа
+        return "redirect:/";
+    }
+    @PostMapping("/immovables/{id}/purchase")
+    public String postUserPurchaseImmovables(
+            @PathVariable(value = "id") long id,
+            Principal principal,
+            Model model){
+        immovablesService.purchaseImmovables(id,principal);
+        return "redirect:/";
+    }
 
 
 

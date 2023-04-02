@@ -49,6 +49,7 @@ public class ImmovablesService {
         immovablesRepository.save(immovablesFromDb);
     }
 
+
     public void editImmovables(Long id,
             Principal principal,
             Details detailsNow,
@@ -113,4 +114,9 @@ public class ImmovablesService {
         return immovablesRepository.findById(id).orElse(null);
     }
 
+    public void purchaseImmovables(long id, Principal principal) {
+        Immovables immovables = immovablesRepository.findById(id).orElseThrow();
+        immovables.setUser(getUserByPrincipal(principal));
+        immovablesRepository.save(immovables);
+    }
 }

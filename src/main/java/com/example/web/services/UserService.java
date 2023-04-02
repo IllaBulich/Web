@@ -1,6 +1,7 @@
 package com.example.web.services;
 
 import com.example.web.models.Immovables;
+import com.example.web.models.Rental;
 import com.example.web.models.Role;
 import com.example.web.models.User;
 import com.example.web.repo.UserRepository;
@@ -11,10 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Array;
 import java.security.Principal;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -23,6 +21,7 @@ import java.util.stream.Collectors;
 public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final ImmovablesService immovablesService;
 
     public boolean createUser(User user) {
         String userEmail = user.getEmail();
@@ -80,4 +79,12 @@ public class UserService {
         return userRepository.findById(id).orElse(null);
     }
 
+    public List<Immovables> getImmovablesRental(List<Rental> rentals) {
+        List<Immovables> immovables = new ArrayList<>();
+        for(Rental rental : rentals){
+
+            immovables.add(immovablesService.getImmovablesById(rental.getImmovable().getId()));
+        }
+        return immovables;
+    }
 }

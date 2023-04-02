@@ -31,6 +31,9 @@ public class Immovables {
     @JoinColumn
     private User user;
 
+    @OneToMany(mappedBy = "immovable", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Rental> rentals;
+
     @OneToOne(mappedBy = "immovables", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Details details;
 

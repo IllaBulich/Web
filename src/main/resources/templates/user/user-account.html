@@ -42,9 +42,11 @@
     </form>
     </div>
 
-    <p th:text="${immovables}"></p>
+    <p >Моя недижемость</p>
     <header th:insert="blocks/immovables :: immovables" th:with="immovables=${immovables}"></header>
 
+    <p >Арендуймая недижемость</p>
+    <header th:insert="blocks/immovables :: immovables" th:with="immovables=${rent}"></header>
 
 
 <div th:insert="blocks/footer :: footer"></div>

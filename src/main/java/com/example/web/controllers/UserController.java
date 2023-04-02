@@ -1,5 +1,6 @@
 package com.example.web.controllers;
 
+import com.example.web.models.Immovables;
 import com.example.web.models.User;
 import com.example.web.services.ImmovablesService;
 import com.example.web.services.UserService;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.security.Principal;
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -51,6 +53,7 @@ public class UserController {
         User user = userService.getUserByPrincipal(principal);
         model.addAttribute("user", user);
         model.addAttribute("immovables", user.getImmovables());
+        model.addAttribute("rent", userService.getImmovablesRental(user.getRentals()));
         return "user/user-account";
     }
     @PostMapping("/user/{id}/remove")
