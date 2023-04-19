@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.security.Principal;
 import java.util.List;
 
@@ -23,7 +24,17 @@ public class ImmovablesService {
     private final UserRepository userRepository;
 
     public List<Immovables> listImmovables(String title){
-        if( title != null ) return immovablesRepository.findByNameContaining(title);
+        if( title != null ) return immovablesRepository.findByTitleContaining(title);
+        return immovablesRepository.findAll();
+    }
+
+    public List<Immovables> listImmovablesCost(String title, Integer min, Integer max){
+        log.info(String.valueOf(min));
+        log.info(String.valueOf(max));
+        if( max != null &&  min != null ) return immovablesRepository.findByTitleContainingAndPriceBetween(title,min,max);
+        if( min != null ) return immovablesRepository.findByTitleContainingAndPriceAfter(title,min);
+        if( max != null ) return immovablesRepository.findByTitleContainingAndPriceBefore(title,max);
+        if( title != null ) return immovablesRepository.findByTitleContaining(title);
         return immovablesRepository.findAll();
     }
 

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.security.Principal;
 import java.time.LocalDate;
 
@@ -27,8 +28,14 @@ public class ImmovablesController {
 
 
     @GetMapping("/")
-    public String home(@RequestParam(name = "title", required = false) String title,Principal principal, Model model) {
-        model.addAttribute("immovables", immovablesService.listImmovables(title));
+    public String home(
+            @RequestParam(name = "title", required = false) String title,
+            @RequestParam(name = "min", required = false) Integer min,
+            @RequestParam(name = "max", required = false) Integer max,
+            Principal principal,
+            Model model
+    ) {
+        model.addAttribute("immovables", immovablesService.listImmovablesCost(title,min,max));
         model.addAttribute("user",immovablesService.getUserByPrincipal(principal));
         return "home";
     }

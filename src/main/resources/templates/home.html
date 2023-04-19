@@ -13,10 +13,27 @@
 
 <main>
     <div class="container mt-0">
-        <form th:action="@{/}" method="get">
-            <input type="search" name="title" class="form-control" placeholder="Search..." aria-label="Search">
+            <form class="row g-3" th:action="@{/}" method="get">
+            <div class="col-6">
+                <input type="search" name="title" class="form-control" placeholder="Search..." aria-label="Search">
+            </div>
+            <div class="col-5">
+                <div class="input-group mb-3">
+                    <span class="input-group-text">Цена от</span>
+                    <input type="number" class="form-control" name="min">
+                    <span class="input-group-text">до</span>
+                    <input type="number" class="form-control" name="max">
+                </div>
+            </div>
+            <div class="col">
+                <div class="input-group mb-3">
+                    <input  class="input-group-text" type="submit" th:value="поиск"/>
+                </div>
+            </div>
+
         </form>
     </div>
+    <br>
 
     <header th:insert="blocks/immovables :: immovables" th:with="immovables=${immovables}"></header>
 
