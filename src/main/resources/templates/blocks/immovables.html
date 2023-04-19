@@ -19,9 +19,9 @@
                   <a th:href="'/immovables/details/'+${el.id}"  type="button" class="btn btn-sm btn-outline-secondary">Детали</a>
                   <a th:href="'/immovables/' + ${el.id} + '/edit'" type="button" class="btn btn-sm btn-outline-secondary">Edit</a>
                 </div>
-                <form th:action="'/immovables/' + ${el.id} + '/remove'" method="post">
-                  <button class="btn btn-warning" type="submit">Удалить</button>
-                </form>
+<!--                <form th:action="'/immovables/' + ${el.id} + '/remove'" method="post">-->
+<!--                  <button class="btn btn-warning" type="submit">Удалить</button>-->
+<!--                </form>-->
                 <small  class="text-muted" th:text="${el.price}+'$'"/>
               </div>
             </div>
