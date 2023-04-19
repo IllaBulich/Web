@@ -9,14 +9,14 @@
 <body>
 <header th:insert="blocks/header :: header"></header>
 
-<div class="container mt-5" >
+<div class="container mt-0" >
   <h3>Подробная инфа</h3>
-  <p th:text="${user.numberPhone}"/>
-  <p th:text="${user.email}"/>
+  <p>Электоронная почта: <span th:text="${user.email}"/></p>
+  <p>Номер телефона:  <span th:text="${user.numberPhone}"/></p>
 
   <h4>Пользователь <span th:text="${user.name}"></span></h4>
 
-  <p th:text="${immovableslist}"></p>
+
   <header th:insert="blocks/immovables :: immovables" th:with="immovables=${immovableslist}"></header>
 
 </div>

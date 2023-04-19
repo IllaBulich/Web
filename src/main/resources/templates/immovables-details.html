@@ -13,6 +13,8 @@
         crossorigin="anonymous"></script>
 
 <div class="container mt-5">
+    <h1 th:text="${immovables.title}"/><br>
+
     <div class="alert alert-info mt-2">
         <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner">
@@ -39,24 +41,67 @@
                 <span class="visually-hidden">Next</span>
             </button>
         </div>
+        <br>
+        <div class="row g-5">
+            <div class="col-md-6">
+                <h3>Дом</h3>
+                <ul class="icon-list ps-0">
+                    <li class="row mb-1">
+                        <div class="col"><b>Город: </b></div>
+                        <div class="col"><span th:text=" ${immovables.city}"/></div>
+                    </li>
+                    <li class="row mb-1">
+                        <div class="col"><b>Улица: </b></div>
+                        <div class="col"><span th:text=" ${immovables.street}"/></div>
+                    </li>
+                    <li class="row mb-1">
+                        <div class="col"><b>Адрес: </b></div>
+                        <div class="col"><span th:text=" ${immovables.address}"/></div>
+                    </li>
+                    <li class="row mb-1">
+                        <div class="col"><b>Владели: </b></div>
+                        <div class="col"><a th:href="'/user/info/'+ ${immovables.user.id}" th:text=" ${immovables.user.name}"></a></div>
+                    </li>
 
-        <h2 th:text="${immovables.title}"/>
-        <div><h6>Город: </h6><span th:text="${immovables.city}"/></div>
-        <div><h5>Улица: </h5><span th:text="${immovables.street}"/></div>
-        <div><h5>Адрес: </h5><span th:text="${immovables.address}"/></div>
-        <div><h4>Описание: </h4>
-            <p th:text="${immovables.description}"/></div>
-        <div><h5>Владели: </h5><a th:href="'/user/info/'+ ${immovables.user.id}" th:text="${immovables.user.name}"></a></div>
+                </ul>
+                <div><h4>Описание: </h4><p th:text="${immovables.description}"/></div>
+            </div>
 
+            <div class="col-md-6">
+                <h3>Квартира</h3>
 
-        <h2 th:text="${immovables.details.realtySupType}"/>
-        <p><b>Комнат: </b><span th:text="${immovables.details.rooms}"/></p>
-        <p><b>Этаж: </b><span th:text="${immovables.details.floor}"/></p>
-        <p><b>Общая площадь: </b><span th:text="${immovables.details.square}"/><span> m2</span></p>
-        <p><b>Жилая площадь: </b><span th:text="${immovables.details.livingSpace}"/><span> m2</span></p>
-        <p><b>Кухня: </b><span th:text="${immovables.details.kitchenSpace}"/><span> m2</span></p>
-        <p><b>Балкон: </b><span th:text="${immovables.details.balcony}"/></p>
-        <p><b>Санузел: </b><span th:text="${immovables.details.bathroom}"/></p>
+                <ul class="icon-list ps-0">
+                    <li class="row mb-1" th:if="${not #strings.isEmpty(immovables.details.rooms)}">
+                        <div class="col"><b>Комнат: </b></div>
+                        <div class="col"><span th:text="${immovables.details.rooms}"/></div>
+                    </li>
+                    <li class="row mb-1" th:if="${not #strings.isEmpty(immovables.details.floor)}">
+                        <div class="col"><b>Этаж: </b></div>
+                        <div class="col"><span th:text="${immovables.details.floor}"/></div>
+                    </li>
+                    <li class="row mb-1" th:if="${not #strings.isEmpty(immovables.details.square)}">
+                        <div class="col"><b>Общая площадь: </b></div>
+                        <div class="col"><span th:text="${immovables.details.square}"/><span> m2</span></div>
+                    </li>
+                    <li class="row mb-1" th:if="${not #strings.isEmpty(immovables.details.livingSpace)}">
+                        <div class="col"><b>Жилая площадь: </b></div>
+                        <div class="col"><span th:text="${immovables.details.livingSpace}"/><span> m2</span></div>
+                    </li>
+                    <li class="row mb-1" th:if="${not #strings.isEmpty(immovables.details.kitchenSpace)}">
+                        <div class="col"><b>Кухня: </b></div>
+                        <div class="col"><span th:text="${immovables.details.kitchenSpace}"/><span> m2</span></div>
+                    </li>
+                    <li class="row mb-1" th:if="${not #strings.isEmpty(immovables.details.balcony)}">
+                        <div class="col"><b>Балкон: </b></div>
+                        <div class="col"><span th:text="${immovables.details.balcony}"/></div>
+                    </li>
+                    <li class="row mb-1" th:if="${not #strings.isEmpty(immovables.details.bathroom)}">
+                        <div class="col"><b>Санузел: </b></div>
+                        <div class="col"><span th:text="${immovables.details.bathroom}"/></div>
+                    </li>
+                </ul>
+            </div>
+        </div>
 
         <p><b>Цена: </b><span th:text="${immovables.price}"/></p>
 
@@ -111,7 +156,6 @@
                 </div>
             </form>
         </div>
-
 
     </div>
 </div>

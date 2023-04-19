@@ -12,12 +12,11 @@
 
 
 <main>
-    <div class="container mt-2">
+    <div class="container mt-0">
         <form th:action="@{/}" method="get">
-        <input type="search" class="form-control" placeholder="поиск..." aria-label="Search" th:name="title">
-    </form>
-    </div><br>
-
+            <input type="search" name="title" class="form-control" placeholder="Search..." aria-label="Search">
+        </form>
+    </div>
 
     <header th:insert="blocks/immovables :: immovables" th:with="immovables=${immovables}"></header>
 
