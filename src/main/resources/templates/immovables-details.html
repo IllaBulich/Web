@@ -134,21 +134,17 @@
                                         aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                <label>ID пользователя:</label>
-                                <input type="number" name="user_id" required>
-                                <br>
-                                <label>ID недвижимости:</label>
-                                <input type="number" name="immovable_id" th:value="${immovables.id}" required>
-                                <br>
+
+                                <input type="hidden" name="immovable_id" th:value="${immovables.id}" required>
                                 <label>Дата начала аренды:</label>
-                                <input type="date" name="rent_start_date" required>
+                                <input type="date" name="rent_start_date"  th:min="${#dates.format(#dates.createNow(),'yyyy-MM-dd')}" required>
                                 <br>
                                 <label>Дата окончания аренды:</label>
-                                <input type="date" name="rent_end_date" required>
+                                <input type="date" name="rent_end_date" th:min="${#dates.format(#dates.createNow(),'yyyy-MM-dd')}" required>
                                 <br>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
                                 <button type="submit" class="btn btn-primary">Арендовать</button>
                             </div>
                         </div>

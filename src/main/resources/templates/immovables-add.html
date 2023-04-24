@@ -102,26 +102,22 @@
         <br>
 
         <div class="input-group input-group-sm  mb-3">
-            <span class="input-group-text">Введите название</span>
-            <input type="text" class="form-control" name="title">
+            <span class="input-group-text">Введите название *</span>
+            <input type="text" class="form-control" name="title"  required>
         </div>
         <div class="input-group input-group-sm mb-3">
-            <span class="input-group-text">Введите название города</span>
-            <input type="text" class="form-control" name="city">
+            <span class="input-group-text">Введите название города *</span>
+            <input type="text" class="form-control" name="city"  required>
         </div>
         <div class="input-group input-group-sm mb-3">
-            <span class="input-group-text">Введите название улицы</span>
-            <input type="text" class="form-control" name="street">
+            <span class="input-group-text">Введите название улицы *</span>
+            <input type="text" class="form-control" name="street"  required>
         </div>
         <div class="input-group input-group-sm mb-3">
-            <span class="input-group-text">Введите адрес</span>
-            <input type="text" class="form-control" name="address">
+            <span class="input-group-text">Введите адрес *</span>
+            <input type="text" class="form-control" name="address"  required>
         </div>
-        <div class="input-group input-group-sm mb-3">
-            <span class="input-group-text">Введите Цену</span>
-            <input type="number" class="form-control" name="price">
-            <span class="input-group-text">$</span>
-        </div>
+
 
         <div class="input-group mb-3">
             <span class="input-group-text">Описание</span>
@@ -173,6 +169,22 @@
             <input class="btn-check" type="radio" id="bathroom-2" name="bathroom" value="2 сан.узла">
             <label class="btn btn-primary" for="bathroom-2"><span>2 сан.узла</span></label>
         </div><br>
+
+        <div class="input-group input-group-sm mb-3">
+            <span class="input-group-text">Введите Цену *</span>
+            <input type="number" class="form-control" name="price"  required>
+            <span class="input-group-text">$</span>
+        </div>
+
+        <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked" name="render" value="on" >
+            <label class="form-check-label" for="flexSwitchCheckChecked">Сдать в аренду</label>
+        </div>
+        <div class="input-group input-group-sm mb-3">
+            <span class="input-group-text">Введите стоимость аренды *</span>
+            <input type="number" class="form-control" name="rentPrice"  required>
+            <span class="input-group-text">$</span>
+        </div>
 
 
         <button type="submit" class="btn btn-success">Разместить объявление</button>

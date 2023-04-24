@@ -13,7 +13,7 @@
 
 <main>
     <div class="container mt-0">
-            <form class="row g-3" th:action="@{/}" method="get">
+            <form class="row g-3" th:action="@{|${#httpServletRequest.requestURL}|}" method="get">
             <div class="col-6">
                 <input type="search" name="title" class="form-control" placeholder="Search..." aria-label="Search">
             </div>

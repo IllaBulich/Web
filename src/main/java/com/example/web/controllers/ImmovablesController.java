@@ -39,6 +39,19 @@ public class ImmovablesController {
         model.addAttribute("user",immovablesService.getUserByPrincipal(principal));
         return "home";
     }
+    @GetMapping("/immovables/render")
+    public String immovablesRender(
+            @RequestParam(name = "title", required = false) String title,
+            @RequestParam(name = "min", required = false) Integer min,
+            @RequestParam(name = "max", required = false) Integer max,
+            Principal principal,
+            Model model
+    ){
+        model.addAttribute("immovables", immovablesService.listImmovablesCostRender(title,min,max));
+        model.addAttribute("user",immovablesService.getUserByPrincipal(principal));
+        return "home";
+    }
+
 
     @GetMapping("/immovables/add")
     public String immovablesAdd(Model  module){

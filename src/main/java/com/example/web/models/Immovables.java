@@ -22,6 +22,10 @@ public class Immovables {
     @Column(columnDefinition = "text")
     private String description;
     private int price;
+    private int rentPrice;
+    private boolean render;
+
+
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY,
     mappedBy = "immovables")
     private List<Image> images = new ArrayList<>();
@@ -64,5 +68,9 @@ public class Immovables {
                 ", user=" + user.getEmail()+
                 ", details=" + details +
                 '}';
+    }
+
+    public boolean getRender() {
+        return render;
     }
 }

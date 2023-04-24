@@ -8,6 +8,8 @@
   </a>
 
   <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
+    <a class="me-3 py-2 text-dark text-decoration-none" href="/immovables/render">Арендовать</a>
+<!--    <a class="me-3 py-2 text-dark text-decoration-none" href="/immovables/purchase">Приобрести</a>-->
     <a class="me-3 py-2 text-dark text-decoration-none" href="/immovables/add" th:if="${#authorization.expression('isAuthenticated()')}" >Добавить недвижимость</a>
     <a type="button" class="btn btn-outline-primary me-2" th:if="${#authorization.expression('isAnonymous()')}" href="/login"> Войти</a>
     <p class="me-3 py-2 text-dark text-decoration-none" th:if="${#authorization.expression('isAuthenticated()')}">Имя  <a href="/user/account"th:text="${#authentication.principal.name}" ></a></span></p>

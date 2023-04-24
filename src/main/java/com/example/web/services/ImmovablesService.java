@@ -23,6 +23,18 @@ public class ImmovablesService {
     private final ImmovablesRepository immovablesRepository;
     private final UserRepository userRepository;
 
+    public List<Immovables> listImmovablesRender() {
+        return immovablesRepository.findByRender(true);
+    }
+
+    public List<Immovables> listImmovablesCostRender(String title, Integer min, Integer max){
+        if( max != null &&  min != null ) return immovablesRepository.findByTitleContainingAndPriceBetweenAndRender(title,min,max,true);
+        if( min != null ) return immovablesRepository.findByTitleContainingAndPriceAfterAndRender(title,min,true);
+        if( max != null ) return immovablesRepository.findByTitleContainingAndPriceBeforeAndRender(title,max,true);
+        if( title != null ) return immovablesRepository.findByTitleContainingAndRender(title,true);
+        return immovablesRepository.findByRender(true);
+    }
+
     public List<Immovables> listImmovables(String title){
         if( title != null ) return immovablesRepository.findByTitleContaining(title);
         return immovablesRepository.findAll();
@@ -74,6 +86,8 @@ public class ImmovablesService {
             immovables.setStreet(immovablesNow.getStreet());
             immovables.setAddress(immovablesNow.getAddress());
             immovables.setPrice(immovablesNow.getPrice());
+            immovables.setRentPrice(immovablesNow.getRentPrice());
+            immovables.setRender(immovablesNow.getRender());
             immovables.setDescription(immovablesNow.getDescription());
 
             immovables.getDetails().setRealtySupType(detailsNow.getRealtySupType());
